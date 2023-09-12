@@ -47,6 +47,7 @@ def main_fun(rank, world_size, args):
     batch_size = args.batch_size
     weights_path = args.weights
     save_path = args.save
+    data_path = args.data_path
     args.lr *= args.world_size
 
     if rank == 0: 
@@ -56,8 +57,14 @@ def main_fun(rank, world_size, args):
         if os.path.exists(save_path) is False:
             os.makedirs(save_path)
 
-    train_data_set = VEATIC(split=0.7, mode='train')
-    val_data_set = VEATIC(split=0.7, mode='test')
+    train_data_set = VEATIC(character_dir=data_path + 'frames',
+                            csv_path=data_path + 'rating_averaged',
+                            split=0.7, 
+                            mode='train')
+    val_data_set = VEATIC(character_dir=data_path + 'frames',
+                          csv_path=data_path + 'rating_averaged',
+                          split=0.7, 
+                          mode='test')
 
 
     train_sampler = torch.utils.data.distributed.DistributedSampler(train_data_set)
@@ -172,7 +179,8 @@ if __name__ == '__main__':
     parser.add_argument('--syncBN', type=bool, default=False)
 
     parser.add_argument('--weights', type=str, default=' ', help='initial weights path')
-    parser.add_argument('--save', type=str, default='./ckpt/', help='initial weights path')
+    parser.add_argument('--save', type=str, default='./ckpt/', help='save weights path')
+    parser.add_argument('--data_path', default='./data/', help='data path')
     parser.add_argument('--freeze-layers', type=bool, default=True)
     parser.add_argument('--device', default='cuda', help='device id (i.e. 0 or 0,1 or cpu)')
 
