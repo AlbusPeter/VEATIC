@@ -23,7 +23,7 @@ class VEATIC(Dataset):
     def __init__(self, 
                  character_dir='./data/frames',
                  csv_path='./data/rating_averaged',
-                 split=0.6, 
+                 split=0.7, 
                  clip_length = 5,
                  downsample = 5,
                  skip_size = 1,
