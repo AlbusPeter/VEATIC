@@ -2,7 +2,7 @@
 
 ![PyTorch Usage](assets/preview.png)
 
-<!-- ### [Preprint](https://arxiv.org/abs/2206.11404) | [Kaggle](https://www.kaggle.com/datasets/alexanderliao/artbench10) | [Papers With Code](https://paperswithcode.com/dataset/artbench-10) -->
+### Preprint | [Project Page](https://veatic.github.io/) 
 
 **VEATIC: Video-based Emotion and Affect Tracking in Context Dataset**<br/>
 [Zhihang Ren*](https://albuspeter.github.io/"), Jefferson Ortega*, [Yifan Wang*](https://yfwang.me/), Zhimin Chen,
@@ -29,11 +29,8 @@ Next, install the required packages:
 
 ## Accessing Dataset
 
-<!-- * [Metadata](https://artbench.eecs.berkeley.edu/files/ArtBench-10.csv) as a csv file
-* [32x32 CIFAR-python:](https://artbench.eecs.berkeley.edu/files/artbench-10-python.tar.gz) works seamlessly with implementations using [the CIFAR-10 dataset](http://www.cs.toronto.edu/~kriz/cifar.html)
-* [32x32 CIFAR-binary:](https://artbench.eecs.berkeley.edu/files/artbench-10-binary.tar.gz) great compatibility with C programs, [tensorflow-datasets](https://www.tensorflow.org/datasets), etc.
-* [256x256 ImageFolder](https://artbench.eecs.berkeley.edu/files/artbench-10-imagefolder.tar), [256x256 ImageFolder with train-test split](https://artbench.eecs.berkeley.edu/files/artbench-10-imagefolder-split.tar) (**recommended**) work seamlessly with PyTorch Vision's [ImageFolder implementation](https://pytorch.org/vision/stable/generated/torchvision.datasets.ImageFolder.html)
-* [original size LSUN, per-style:](https://drive.google.com/drive/folders/1gWdbot6wfmvsI1UDY8WC_-vkZsK9VEhM?usp=sharing) works seamlessly with implementations using [LSUN datasets](https://www.yf.io/p/lsun) -->
+* Downloading [VEATIC Dataset](https://drive.google.com/file/d/1HZIw8RGsRwwENhJlhNJRL88YyfiE442N/view)
+
 After downloading our dataset, you can use `video_frame.py` to convert videos to frames:
 
     python video_frame.py --path_video $VIDEO_PATH --path_save_video $FRAME_PATH
