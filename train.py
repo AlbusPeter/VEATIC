@@ -54,7 +54,7 @@ def main_fun(rank, world_size, args):
         print(args)
         print('Start Tensorboard with "tensorboard --logdir=runs", view at http://localhost:6006/')
         tb_writer = SummaryWriter()
-        if os.path.exists(save_path) is False:
+        if os.path.exists(save_path) is False and not args.test:
             os.makedirs(save_path)
 
     train_data_set = VEATIC(character_dir=data_path + 'frames',
@@ -119,53 +119,66 @@ def main_fun(rank, world_size, args):
     lf = lambda x: ((1 + math.cos(x * math.pi / args.epochs)) / 2) * (1 - args.lrf) + args.lrf 
     scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lf)
     eval_best_score = 0
-
-    for epoch in range(args.epochs):
-        train_sampler.set_epoch(epoch)
-
-        mean_loss, train_val_ccc, \
-        train_aro_ccc, train_val_pcc, \
-        train_aro_pcc, train_val_rmse, \
-        train_aro_rmse, train_val_sagr, train_aro_sagr = train_one_epoch(model=model,
-                                                                        optimizer=optimizer,
-                                                                        data_loader=train_loader,
-                                                                        device=device,
-                                                                        epoch=epoch)
-        
-        scheduler.step()
-
+    
+    if args.test:
         val_ccc, aro_ccc, val_pcc, \
         aro_pcc, val_rmse, aro_rmse, val_sagr, aro_sagr = evaluate(model=model,
                                                                     data_loader=val_loader,
                                                                     device=device)
-
+        
         if rank == 0:
-            print("[epoch {}] mean_loss: {}".format(epoch, mean_loss))
-            print("[epoch {}] train_val_ccc: {} train_aro_ccc: {}".format(epoch, train_val_ccc, train_aro_ccc))
-            print("[epoch {}] train_val_pcc: {} train_aro_pcc: {}".format(epoch, train_val_pcc, train_aro_pcc))
-            print("[epoch {}] train_val_rmse: {} train_aro_rmse: {}".format(epoch, train_val_rmse, train_aro_rmse))
-            print("[epoch {}] train_val_sagr: {} train_aro_sagr: {}".format(epoch, train_val_sagr, train_aro_sagr))
+            print("[test] val_ccc: {} aro_ccc: {}".format(val_ccc, aro_ccc))
+            print("[test] val_pcc: {} aro_pcc: {}".format(val_pcc, aro_pcc))
+            print("[test] val_rmse: {} aro_rmse: {}".format(val_rmse, aro_rmse))
+            print("[test] val_sagr: {} aro_sagr: {}".format(val_sagr, aro_sagr))
+        
+    else:
+        for epoch in range(args.epochs):
+            train_sampler.set_epoch(epoch)
 
+            mean_loss, train_val_ccc, \
+            train_aro_ccc, train_val_pcc, \
+            train_aro_pcc, train_val_rmse, \
+            train_aro_rmse, train_val_sagr, train_aro_sagr = train_one_epoch(model=model,
+                                                                            optimizer=optimizer,
+                                                                            data_loader=train_loader,
+                                                                            device=device,
+                                                                            epoch=epoch)
             
-            print("[epoch {}] val_ccc: {} aro_ccc: {}".format(epoch, val_ccc, aro_ccc))
-            print("[epoch {}] val_pcc: {} aro_pcc: {}".format(epoch, val_pcc, aro_pcc))
-            print("[epoch {}] val_rmse: {} aro_rmse: {}".format(epoch, val_rmse, aro_rmse))
-            print("[epoch {}] val_sagr: {} aro_sagr: {}".format(epoch, val_sagr, aro_sagr))
+            scheduler.step()
 
-            tags = ["loss", "val_ccc", "aro_ccc", "learning_rate"]
-            tb_writer.add_scalar(tags[0], mean_loss, epoch)
-            tb_writer.add_scalar(tags[1], val_ccc, epoch)
-            tb_writer.add_scalar(tags[2], aro_ccc, epoch)
-            tb_writer.add_scalar(tags[3], optimizer.param_groups[0]["lr"], epoch)
-            
-            torch.save(model.module.state_dict(), save_path + "veatic.pth") # change the name by yourself
-            
-            if (epoch + 1) % 5 == 0:
-                torch.save(model.module.state_dict(), save_path + "veatic_{}.pth".format(epoch + 1))
+            val_ccc, aro_ccc, val_pcc, \
+            aro_pcc, val_rmse, aro_rmse, val_sagr, aro_sagr = evaluate(model=model,
+                                                                        data_loader=val_loader,
+                                                                        device=device)
 
-            if( val_ccc + aro_ccc) / 2 > eval_best_score:
-                eval_best_score = (val_ccc + aro_ccc) / 2
-                torch.save(model.module.state_dict(), save_path + "veatic_eval_best_{}.pth".format(epoch + 1))
+            if rank == 0:
+                print("[epoch {}] mean_loss: {}".format(epoch, mean_loss))
+                print("[epoch {}] train_val_ccc: {} train_aro_ccc: {}".format(epoch, train_val_ccc, train_aro_ccc))
+                print("[epoch {}] train_val_pcc: {} train_aro_pcc: {}".format(epoch, train_val_pcc, train_aro_pcc))
+                print("[epoch {}] train_val_rmse: {} train_aro_rmse: {}".format(epoch, train_val_rmse, train_aro_rmse))
+                print("[epoch {}] train_val_sagr: {} train_aro_sagr: {}".format(epoch, train_val_sagr, train_aro_sagr))
+
+                
+                print("[test] val_ccc: {} aro_ccc: {}".format(val_ccc, aro_ccc))
+                print("[test] val_pcc: {} aro_pcc: {}".format(val_pcc, aro_pcc))
+                print("[test] val_rmse: {} aro_rmse: {}".format(val_rmse, aro_rmse))
+                print("[test] val_sagr: {} aro_sagr: {}".format(val_sagr, aro_sagr))
+
+                tags = ["loss", "val_ccc", "aro_ccc", "learning_rate"]
+                tb_writer.add_scalar(tags[0], mean_loss, epoch)
+                tb_writer.add_scalar(tags[1], train_val_ccc, epoch)
+                tb_writer.add_scalar(tags[2], train_aro_ccc, epoch)
+                tb_writer.add_scalar(tags[3], optimizer.param_groups[0]["lr"], epoch)
+                
+                torch.save(model.module.state_dict(), save_path + "veatic.pth") # change the name by yourself
+                
+                if (epoch + 1) % 5 == 0:
+                    torch.save(model.module.state_dict(), save_path + "veatic_{}.pth".format(epoch + 1))
+
+                if( val_ccc + aro_ccc) / 2 > eval_best_score:
+                    eval_best_score = (val_ccc + aro_ccc) / 2
+                    torch.save(model.module.state_dict(), save_path + "veatic_eval_best_{}.pth".format(epoch + 1))
 
     cleanup()
 
@@ -183,6 +196,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_path', default='./data/', help='data path')
     parser.add_argument('--freeze-layers', type=bool, default=True)
     parser.add_argument('--device', default='cuda', help='device id (i.e. 0 or 0,1 or cpu)')
+    parser.add_argument('--test', action='store_true')
 
     parser.add_argument('--world-size', default=4, type=int,
                         help='number of distributed processes')

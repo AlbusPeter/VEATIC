@@ -50,6 +50,11 @@ A dataset is a directory with the following structure:
 After preparing a dataset, you can train the by running:
 
     CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH
+
+If you want to test the model, you can run:
+
+    CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH --test
+
  
 The job should use a mutually exclusive set of GPUs. This division allows the
 training job to run without having to stop for evaluation.
