@@ -5,7 +5,7 @@
 ### [Preprint](https://arxiv.org/abs/2309.06745) | [Project Page](https://veatic.github.io/) 
 
 **VEATIC: Video-based Emotion and Affect Tracking in Context Dataset**<br/>
-[Zhihang Ren*](https://albuspeter.github.io/"), Jefferson Ortega*, [Yifan Wang*](https://yfwang.me/), Zhimin Chen,
+[Zhihang Ren*](https://albuspeter.github.io/), [Jefferson Ortega*](https://www.jeffersonortega.me/), [Yifan Wang*](https://yfwang.me/), Zhimin Chen,
 [David Whitney](https://whitneylab.berkeley.edu/people/dave.html), 
 [Yunhui Guo](https://yunhuiguo.github.io/), 
 [Stella Yu](https://web.eecs.umich.edu/~stellayu/), 
