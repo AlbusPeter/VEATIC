@@ -8,7 +8,7 @@
 [Zhihang Ren*](https://albuspeter.github.io/), [Jefferson Ortega*](https://www.jeffersonortega.me/), [Yifan Wang*](https://yfwang.me/), Zhimin Chen,
 [David Whitney](https://whitneylab.berkeley.edu/people/dave.html), 
 [Yunhui Guo](https://yunhuiguo.github.io/), 
-[Stella Yu](https://web.eecs.umich.edu/~stellayu/), 
+[Stella X. Yu](https://web.eecs.umich.edu/~stellayu/), 
 <br/>
 \* equal contribution
 
@@ -63,11 +63,11 @@ training job to run without having to stop for evaluation.
 
 If you find the work useful in your research, please consider citing:
 
-<!-- ```bibtex
-@article{liao2022artbench,
-  title={The ArtBench Dataset: Benchmarking Generative Models with Artworks},
-  author={Liao, Peiyuan and Li, Xiuyu and Liu, Xihui and Keutzer, Kurt},
-  journal={arXiv preprint arXiv:2206.11404},
-  year={2022}
+```bibtex
+@article{ren2023veatic,
+   title    = {VEATIC: Video-based Emotion and Affect Tracking in Context Dataset},
+   author   = {Ren, Zhihang and Ortega, Jefferson and Wang, Yifan and Chen, Zhimin and Whitney, David and Guo, Yunhui and Yu, Stella X},
+   journal  = {arXiv preprint arXiv:2309.06745},
+   year     = {2023}
 }
-``` -->
+```
