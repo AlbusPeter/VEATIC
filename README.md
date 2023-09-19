@@ -46,11 +46,23 @@ A dataset is a directory with the following structure:
         │   ├── ${video_id}
         │   └── └── ${frame_id}.png
 
+## Pretrain model
+
+* Downloading [pretrain model](https://drive.google.com/file/d/1dRqmx4UWAtB8E6tcj8XEd16Opk6OZCIx/view?usp=sharing)
+
 ## Training
-After preparing a dataset, you can train the by running:
+After preparing a dataset, you can train from scratch the by running:
+
+    CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH
+
+If you want to resume the model, you can run:
 
     CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH
 
+The job should use a mutually exclusive set of GPUs. This division allows the
+training job to run without having to stop for evaluation.
+
+## Testing
 If you want to test the model, you can run:
 
     CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH --test
