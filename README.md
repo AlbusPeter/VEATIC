@@ -27,6 +27,8 @@ Next, install the required packages:
 
     pip install -r requirements.txt
 
+We experimented in an Ubuntu environment
+
 ## Accessing Dataset
 
 * Downloading [VEATIC Dataset](https://drive.google.com/file/d/1HZIw8RGsRwwENhJlhNJRL88YyfiE442N/view)
@@ -46,11 +48,25 @@ A dataset is a directory with the following structure:
         │   ├── ${video_id}
         │   └── └── ${frame_id}.png
 
+## Pretrain model
+
+* Downloading [pretrain model](https://drive.google.com/file/d/1dRqmx4UWAtB8E6tcj8XEd16Opk6OZCIx/view?usp=sharing)
+
+This weight was trained and tested on the first 98 videos， the split is 0.7 (first 70% frames for training, last 30% frames for testing) 
+
 ## Training
-After preparing a dataset, you can train the by running:
+After preparing a dataset, you can train from scratch the by running:
 
-    CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH
+    CUDA_VISIBLE_DEVICES=$GPU_IDS python train.py --epochs $NUM_EPOCHS --batch-size $NUM_BATCH_SIZE --data_path $DATASET_PATH --save $EXPERIMENT_PATH --world-size $NUM_GPUS
 
+If you want to resume the model, you can run:
+
+    CUDA_VISIBLE_DEVICES=$GPU_IDS python train.py --batch-size $NUM_BATCH_SIZE --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH --world-size $NUM_GPUS
+
+The job should use a mutually exclusive set of GPUs. This division allows the
+training job to run without having to stop for evaluation.
+
+## Testing
 If you want to test the model, you can run:
 
     CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_path $DATASET_PATH --save $EXPERIMENT_PATH --weights $WEIGHT_PATH --test
