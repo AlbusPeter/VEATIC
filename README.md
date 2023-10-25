@@ -1,5 +1,5 @@
 # VEATIC
-
+#### IEEE/CVF WACV 2024
 ![PyTorch Usage](assets/preview.png)
 
 ### [Preprint](https://arxiv.org/abs/2309.06745) | [Project Page](https://veatic.github.io/) 
