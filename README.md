@@ -1,5 +1,4 @@
-# VEATIC
-#### IEEE/CVF WACV 2024
+# VEATIC: Video-based Emotion and Affect Tracking in Context Dataset
 ![PyTorch Usage](assets/preview.png)
 
 ### [Preprint](https://arxiv.org/abs/2309.06745) | [Project Page](https://veatic.github.io/) 
@@ -14,7 +13,7 @@
 
 Human affect recognition has been a significant topic in psychophysics and computer vision. However, the currently published datasets have many limitations. For example, most datasets contain frames that contain only information about facial expressions. Due to the limitations of previous datasets, it is very hard to either understand the mechanisms for affect recognition of humans or generalize well on common cases for computer vision models trained on those datasets. In this work, we introduce a brand new large dataset, the **Video-based Emotion and Affect Tracking in Context Dataset (VEATIC)**, that can conquer the limitations of the previous datasets. VEATIC has **124** video clips from Hollywood movies, documentaries, and home videos with continuous valence and arousal ratings of each frame via real-time annotation. Along with the dataset, we propose a new computer vision task to infer the affect of the selected character via both context and character information in each video frame. Additionally, we propose a simple model to benchmark this new computer vision task. We also compare the performance of the pretrained model using our dataset with other similar datasets. Experiments show the competing results of our pretrained model via VEATIC, indicating the generalizability of VEATIC.
 
-## Set Up
+## Setups
 
 The code can be run under any environment with Python 3.8 and above.
 (It may run with lower versions, but we have not tested it).
@@ -77,7 +76,7 @@ training job to run without having to stop for evaluation.
 
 ## Citation
 
-If you find the work useful in your research, please consider citing:
+If you find our work inspiring or use our codebase in your research, please consider giving a star ⭐ and a citation.
 
 ```bibtex
 @inproceedings{ren2024veatic,
