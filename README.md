@@ -80,10 +80,11 @@ training job to run without having to stop for evaluation.
 If you find the work useful in your research, please consider citing:
 
 ```bibtex
-@article{ren2023veatic,
-   title    = {VEATIC: Video-based Emotion and Affect Tracking in Context Dataset},
-   author   = {Ren, Zhihang and Ortega, Jefferson and Wang, Yifan and Chen, Zhimin and Whitney, David and Guo, Yunhui and Yu, Stella X},
-   journal  = {arXiv preprint arXiv:2309.06745},
-   year     = {2023}
+@inproceedings{ren2024veatic,
+  title={VEATIC: Video-based Emotion and Affect Tracking in Context Dataset},
+  author={Ren, Zhihang and Ortega, Jefferson and Wang, Yifan and Chen, Zhimin and Guo, Yunhui and Yu, Stella X and Whitney, David},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+  pages={4467--4477},
+  year={2024}
 }
 ```
